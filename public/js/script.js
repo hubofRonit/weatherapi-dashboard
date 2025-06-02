@@ -98,10 +98,20 @@ const apiRequest = async (endpoint, method = 'GET', body = null, requiresAuth = 
 
 // Function to clear all error messages
 const clearErrors = () => {
-    errorMessageElements.forEach(el => el.textContent = '');
-    locationError.textContent = '';
-    alertError.textContent = '';
-    historyError.textContent = '';
+    errorMessageElements.forEach(el => {
+        if (el) { 
+            el.textContent = '';
+        }
+    });
+    if (locationError) {
+        locationError.textContent = '';
+    }
+    if (alertError) {
+        alertError.textContent = '';
+    }
+    if (historyError) {
+        historyError.textContent = '';
+    }
 };
 
 // Function to display error messages
@@ -162,24 +172,31 @@ const handleLogout = () => {
 // --- UI Updates ---
 
 const showDashboard = (user) => {
-    dashboardElement.classList.remove('hidden');
-    loginPromptElement.classList.add('hidden');
-    userInfo.classList.remove('hidden');
-    userNameSpan.textContent = `Welcome, ${user.name}!`;
-    loadSavedLocations(); // Load locations when dashboard is shown
+    if (dashboardElement) dashboardElement.classList.remove('hidden');
+    if (loginPromptElement) loginPromptElement.classList.add('hidden');
+    if (userInfo) userInfo.classList.remove('hidden');
+    if (userNameSpan) userNameSpan.textContent = `Welcome, ${user.name}!`;
+
+    // loadSavedLocations already has its own checks for locationsList existence
+    // but it's good practice to ensure the primary elements for this view are present.
+    if (dashboardElement) { // Or specifically if (locationsList)
+        loadSavedLocations(); // Load locations when dashboard is shown
+    }
 };
 
 const showLogin = () => {
-    dashboardElement.classList.add('hidden');
-    weatherDisplay.classList.add('hidden');
-    alertManager.classList.add('hidden');
-    historicalWeatherDiv.classList.add('hidden');
-    loginPromptElement.classList.remove('hidden');
-    userInfo.classList.add('hidden');
-    userNameSpan.textContent = '';
-    locationsList.innerHTML = ''; // Clear locations list
-    alertsList.innerHTML = ''; // Clear alerts list
-    currentWeatherDiv.innerHTML = '<p>Select a location to see the weather.</p>';
+    if (dashboardElement) dashboardElement.classList.add('hidden');
+    if (weatherDisplay) weatherDisplay.classList.add('hidden');
+    if (alertManager) alertManager.classList.add('hidden');
+    if (historicalWeatherDiv) historicalWeatherDiv.classList.add('hidden');
+    if (loginPromptElement) loginPromptElement.classList.remove('hidden');
+    if (userInfo) userInfo.classList.add('hidden');
+    if (userNameSpan) userNameSpan.textContent = '';
+
+    // These elements are specific to the dashboard, so check them
+    if (locationsList) locationsList.innerHTML = ''; // Clear locations list
+    if (alertsList) alertsList.innerHTML = ''; // Clear alerts list
+    if (currentWeatherDiv) currentWeatherDiv.innerHTML = '<p>Select a location to see the weather.</p>';
 };
 
 // --- Location Management ---

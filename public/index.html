@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+        <div id="user-info">
+            <span id="user-name"></span>
+            <button id="logout-button">Logout</button>
+        </div>
+    </header>
+
+    <main id="dashboard" class="hidden"> <!-- Hide until logged in -->
+        <section id="location-manager">
+            <h2>Manage Locations</h2>
+            <form id="add-location-form">
+                <input type="text" id="location-name" placeholder="Location Label (e.g., Home)" required>
+                <input type="text" id="location-city" placeholder="City Name (e.g., London)" required>
+                <button type="submit">Add Location</button>
+                <p id="location-error" class="error"></p>
+            </form>
+            <div id="saved-locations">
+                <h3>Your Saved Locations</h3>
+                <ul id="locations-list">
+                    <!-- Locations will be loaded here -->
+                </ul>
+            </div>
+        </section>
+
+        <section id="weather-display" class="hidden">
+            <h2 id="weather-location-name">Current Weather for Selected Location</h2>
+             <button id="refresh-weather-btn" class="hidden">Refresh</button>
+            <div id="current-weather" class="weather-card">
+                <!-- Current weather details -->
+            </div>
+
+             <div id="historical-weather" class="hidden">
+                <h3>Historical Data</h3>
+                <form id="history-form">
+                    <label for="start-date">Start:</label>
+                    <input type="date" id="start-date" required>
+                    <label for="end-date">End:</label>
+                    <input type="date" id="end-date" required>
+                    <button type="submit">Get History</button>
+                </form>
+                 <div id="history-results">
+                    <!-- History table/chart -->
+                </div>
+                 <p id="history-error" class="error"></p>
+            </div>
+        </section>
+
+        <section id="alert-manager" class="hidden">
+            <h2>Manage Alerts for <span id="alert-location-name">Selected Location</span></h2>
+            <form id="add-alert-form">
+                 <input type="hidden" id="alert-location-id">
+                <select id="alert-condition" required>
+                    <option value="">--Select Condition--</option>
+                    <option value="temp_gt">Temperature Above (°C)</option>
+                    <option value="temp_lt">Temperature Below (°C)</option>
+                    <option value="humidity_gt">Humidity Above (%)</option>
+                    <option value="wind_gt">Wind Speed Above (m/s)</option>
+                    <option value="rain_likely">Rain Likely</option>
+                    <option value="desc_contains">Description Contains</option>
+                </select>
+                <input type="text" id="alert-threshold" placeholder="Threshold Value" required>
+                <button type="submit">Add Alert</button>
+                 <p id="alert-error" class="error"></p>
+            </form>
+            <div id="saved-alerts">
+                <h3>Active Alerts</h3>
+                <ul id="alerts-list">
+                    <!-- Alerts will be loaded here -->
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <div id="login-prompt" class="auth-prompt">
+        <h2>Welcome!</h2>
+        <p>Please <a href="/login.html">login</a> or <a href="/signup.html">sign up</a> to use the dashboard.</p>
+    </div>
+
+    <footer>
+        <p>© 2023 Weather Dashboard</p>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
